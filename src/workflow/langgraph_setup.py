@@ -51,6 +51,10 @@ def create_workflow():
 
     # Compile the graph
     app = workflow.compile()
+    graph = app.get_graph().draw_mermaid()
+    # SAVE IN MD FILE BETWEEEN MERMAID TO VISUALIZE
+    with open("workflow.md", "w") as f:
+        f.write(graph)
     return app
 
 # Create the compiled app instance
