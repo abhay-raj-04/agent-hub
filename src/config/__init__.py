@@ -1,0 +1,1 @@
+# Configuration module for Resume AI Co-Pilot 
