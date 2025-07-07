@@ -18,8 +18,9 @@ def analyze_resume_node(state: ResumeCoPilotState):
             
         resume = state.get("resume_text", "")
         jd = state.get("job_description_text", "") or ""
+        user_query = state.get("user_query", "")  # Get user query for context
         
-        analysis_prompt = get_analysis_prompt(resume, jd)
+        analysis_prompt = get_analysis_prompt(resume, jd, user_query)
 
         response = llm.invoke(analysis_prompt)
         # Ensure response.content is a string
@@ -53,8 +54,9 @@ def analyze_resume_node_streaming(state: ResumeCoPilotState):
             
         resume = state.get("resume_text", "")
         jd = state.get("job_description_text", "") or ""
+        user_query = state.get("user_query", "")  # Get user query for context
         
-        analysis_prompt = get_analysis_prompt(resume, jd)
+        analysis_prompt = get_analysis_prompt(resume, jd, user_query)
 
         # Stream the response
         full_response = ""

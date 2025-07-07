@@ -1,9 +1,11 @@
-def get_quiz_prompt_standard(resume: str) -> str:
+def get_quiz_prompt_standard(resume: str, user_query: str = "") -> str:
     """
     Generate standard quiz prompt for interview questions.
     """
     return f"""
 You are a seasoned hiring manager creating interview questions. Your task is to generate 5-7 unique and insightful interview questions directly based on the user's resume. Focus on behavioral questions that require the user to elaborate on their experiences, skills, and achievements.
+
+USER REQUEST: {user_query}
 
 RESUME:
 {resume}
@@ -13,9 +15,11 @@ INSTRUCTIONS:
 - Focus on past experiences: "Tell me about a time when...", "Describe a situation where...", "How did you handle...".
 - Use specific keywords or projects mentioned in the resume to make questions highly personalized.
 - If the resume mentions team leadership, ask about challenges in leadership. If it mentions a specific project, ask about their role and outcome.
+- Address the user's specific request (e.g., if they ask for "technical questions", focus on technical skills)
+- If the user asks for a specific number of questions, generate exactly that many
 - Output the questions as a numbered list.
 
-Generate 5-7 behavioral interview questions based on this resume:
+Generate interview questions based on this resume and user request:
 """
 
 def get_quiz_prompt_followup(user_query: str, resume: str, conversation_history: list) -> str:

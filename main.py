@@ -10,9 +10,9 @@ import os
 # Add the src directory to the Python path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-from src.ui.streamlit_app import main as streamlit_main
-from src.utils.debug_router import debug_router
-from src.utils.test_gemini import test_gemini
+from src.resume_ai_copilot.ui.streamlit_app import main as streamlit_main
+from src.resume_ai_copilot.utils.debug_router import debug_router
+from src.resume_ai_copilot.utils.test_gemini import test_gemini
 
 def main():
     """Main entry point"""

@@ -2,6 +2,8 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 import time
+from PIL import Image
+import pytesseract
 
 # Load environment variables from .env file
 load_dotenv()
@@ -33,6 +35,14 @@ def extract_text_from_docx(file_bytes):
     for paragraph in doc.paragraphs:
         text += paragraph.text + "\n"
     return text
+
+def extract_text_from_image(file_bytes):
+    try:
+        img = Image.open(BytesIO(file_bytes))
+        text = pytesseract.image_to_string(img)
+        return text
+    except Exception as e:
+        return f"[Error extracting text from image: {e}]"
 
 def main():
     """Main streaming Streamlit application"""
@@ -78,8 +88,8 @@ def main():
         
         st.markdown("---")
         st.subheader("📄 Documents")
-        uploaded_resume = st.file_uploader("Upload Resume (.pdf, .docx)", type=["pdf", "docx"], key="resume_uploader")
-        uploaded_jd = st.file_uploader("Upload Job Description (.pdf, .docx, .txt)", type=["pdf", "docx", "txt"], key="jd_uploader")
+        uploaded_resume = st.file_uploader("Upload Resume (.pdf, .docx, .png, .jpg, .jpeg)", type=["pdf", "docx", "png", "jpg", "jpeg"], key="resume_uploader")
+        uploaded_jd = st.file_uploader("Upload Job Description (.pdf, .docx, .txt, .png, .jpg, .jpeg)", type=["pdf", "docx", "txt", "png", "jpg", "jpeg"], key="jd_uploader")
 
         # Auto-process resume when uploaded
         if uploaded_resume is not None:
@@ -89,6 +99,8 @@ def main():
                         st.session_state.graph_state["resume_text"] = extract_text_from_pdf(uploaded_resume.read())
                     elif uploaded_resume.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
                         st.session_state.graph_state["resume_text"] = extract_text_from_docx(uploaded_resume.read())
+                    elif uploaded_resume.type in ["image/png", "image/jpeg"]:
+                        st.session_state.graph_state["resume_text"] = extract_text_from_image(uploaded_resume.read())
                     st.session_state.last_resume = uploaded_resume.name
                     st.success(f"✅ Resume processed: {uploaded_resume.name}")
 
@@ -100,6 +112,8 @@ def main():
                         st.session_state.graph_state["job_description_text"] = extract_text_from_pdf(uploaded_jd.read())
                     elif uploaded_jd.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
                         st.session_state.graph_state["job_description_text"] = extract_text_from_docx(uploaded_jd.read())
+                    elif uploaded_jd.type in ["image/png", "image/jpeg"]:
+                        st.session_state.graph_state["job_description_text"] = extract_text_from_image(uploaded_jd.read())
                     else: # Assume text file
                         st.session_state.graph_state["job_description_text"] = uploaded_jd.read().decode("utf-8")
                     st.session_state.last_jd = uploaded_jd.name

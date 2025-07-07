@@ -27,8 +27,8 @@ def generate_quiz_node(state: ResumeCoPilotState):
             # This is a follow-up question, generate related questions
             quiz_prompt = get_quiz_prompt_followup(user_query, resume, conversation_history[-4:] if len(conversation_history) >= 4 else conversation_history)
         else:
-            # Standard quiz generation
-            quiz_prompt = get_quiz_prompt_standard(resume)
+            # Standard quiz generation - now includes user query
+            quiz_prompt = get_quiz_prompt_standard(resume, user_query)
 
         response = llm.invoke(quiz_prompt)
         # Ensure response.content is a string
@@ -39,8 +39,11 @@ def generate_quiz_node(state: ResumeCoPilotState):
         lines = content.split('\n')
         for line in lines:
             line = line.strip()
-            if line and (line[0].isdigit() or line.startswith('1.') or line.startswith('2.') or line.startswith('3.') or line.startswith('4.') or line.startswith('5.') or line.startswith('6.') or line.startswith('7.') or line.startswith('8.') or line.startswith('9.') or line.startswith('10.')):
-                questions.append(line)
+            if line and (line[0].isdigit() or line.startswith('•') or line.startswith('-') or line.startswith('*')):
+                # Remove numbering/bullets and clean up
+                clean_line = line.lstrip('0123456789.•-* ').strip()
+                if clean_line:
+                    questions.append(clean_line)
         
         if not questions:
             # Fallback if parsing fails
