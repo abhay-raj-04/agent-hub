@@ -1,0 +1,19 @@
+# Core frameworks for AI and state management
+langchain
+langgraph
+langchain-google-genai
+
+# Web application UI
+streamlit
+
+# Environment variable management
+python-dotenv
+
+# For making HTTP requests
+requests
+
+# For web scraping and search tool
+langchain-community
+beautifulsoup4
+playwright
+tavily-python
