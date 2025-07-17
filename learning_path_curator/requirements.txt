@@ -1,0 +1,9 @@
+langchain
+langgraph
+langchain-google-genai
+streamlit
+python-dotenv
+tavily-python
+langchain-community
+beautifulsoup4
+playwright
