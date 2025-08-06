@@ -1,25 +1,16 @@
 from typing import TypedDict, List, Optional, Dict
 
 class LearningPathState(TypedDict):
-    """
-    Defines the state for the Learning Path Curator agent.
-    """
-    # --- User Inputs ---
+    """State management for Learning Path Curator agent."""
+    # User Inputs
     learning_goal: str
-    experience_level: str # e.g., "Beginner", "Intermediate"
+    experience_level: str
 
-    # --- Pipeline State ---
-    # 1. Deconstruction
-    topics_graph: Optional[Dict[str, List[str]]] # e.g., {"Core": ["HTML", "CSS"], "Advanced": ["React"]}
-
-    # 2. Discovery
-    discovered_resources: Optional[Dict[str, List[Dict[str, str]]]] # { "HTML": [{"url": "...", "title": "..."}, ...]}
-
-    # 3. Evaluation
-    evaluated_resources: Optional[Dict[str, List[Dict[str, str]]]] # { "HTML": [{"url": "...", "title": "...", "quality": 8, "level": "Beginner"}, ...]}
-    
-    # 4. Sequencing & Presentation
+    # Pipeline State
+    topics_graph: Optional[Dict[str, List[str]]]
+    discovered_resources: Optional[Dict[str, List[Dict[str, str]]]]
+    evaluated_resources: Optional[Dict[str, List[Dict[str, str]]]]
     final_curriculum: Optional[str]
 
-    # --- General ---
+    # General
     error_message: Optional[str]
