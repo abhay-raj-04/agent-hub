@@ -1,9 +1,7 @@
 from typing import TypedDict, List, Optional
 
 class ResumeCoPilotState(TypedDict):
-    """
-    Represents the state of the Resume AI Co-Pilot conversation.
-    """
+    """State management for Resume AI Co-Pilot conversations."""
     resume_text: str
     job_description_text: Optional[str]
     user_query: str
@@ -14,4 +12,4 @@ class ResumeCoPilotState(TypedDict):
     conversation_history: List[dict]
     error_message: Optional[str]
     formatted_response: Optional[str]
-    think_mode: bool  # True for high-quality (Pro), False for fast (Flash) 
+    think_mode: bool  # Pro model for quality vs Flash for speed 

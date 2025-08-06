@@ -1,8 +1,6 @@
 def get_router_prompt(user_query: str, resume_available: bool, jd_available: bool, 
                      is_follow_up: bool, recent_context: str) -> str:
-    """
-    Generate the router prompt for classifying user intent.
-    """
+    """Classifies user intent for appropriate agent routing."""
     return f"""
 You are the central routing intelligence for a Resume AI Co-Pilot. Your task is to analyze the user query and conversation history to decide which specialized agent should handle the request.
 

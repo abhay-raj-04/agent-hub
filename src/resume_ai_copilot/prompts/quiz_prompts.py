@@ -1,7 +1,5 @@
 def get_quiz_prompt_standard(resume: str, user_query: str = "") -> str:
-    """
-    Generate standard quiz prompt for interview questions.
-    """
+    """Creates tailored interview questions based on resume content."""
     return f"""
 You are a seasoned hiring manager creating interview questions. Your task is to generate 5-7 unique and insightful interview questions directly based on the user's resume. Focus on behavioral questions that require the user to elaborate on their experiences, skills, and achievements.
 
@@ -23,9 +21,7 @@ Generate interview questions based on this resume and user request:
 """
 
 def get_quiz_prompt_followup(user_query: str, resume: str, conversation_history: list) -> str:
-    """
-    Generate follow-up quiz prompt for related questions.
-    """
+    """Generates follow-up questions building on previous interview topics."""
     return f"""
 You are a seasoned hiring manager. The user is asking follow-up questions about previous interview questions. Generate 5-7 additional related questions that build upon or explore the same themes.
 

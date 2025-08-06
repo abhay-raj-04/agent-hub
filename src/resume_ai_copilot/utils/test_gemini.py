@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-"""
-Test script for Gemini LLM integration
-Run this to verify your API key and LLM setup is working
-"""
+"""Test script for Gemini LLM integration"""
 
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
+# Load environment variables
 load_dotenv()
 
 from langchain_google_genai import ChatGoogleGenerativeAI

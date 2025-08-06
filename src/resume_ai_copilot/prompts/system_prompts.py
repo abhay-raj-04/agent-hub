@@ -1,7 +1,5 @@
 def get_welcome_message() -> str:
-    """
-    Get the welcome message for new users.
-    """
+    """Welcome message for new users."""
     return (
         "👋 **Welcome to Resume AI Co-Pilot!**\n\n"
         "I'm here to help you optimize your resume and prepare for interviews. Here's what I can do:\n\n"
@@ -14,9 +12,7 @@ def get_welcome_message() -> str:
     )
 
 def get_greeting_response() -> str:
-    """
-    Get greeting response for general queries.
-    """
+    """Greeting response for general queries."""
     return (
         "Hello! I'm your Resume AI Co-Pilot. I can help you:\n\n"
         "• Analyze your resume against job descriptions\n"
@@ -27,9 +23,7 @@ def get_greeting_response() -> str:
     )
 
 def get_missing_resume_message() -> str:
-    """
-    Get message when resume is missing.
-    """
+    """Message when resume is missing."""
     return (
         "📄 **Resume Required**\n\n"
         "I need your resume to help you effectively. Please upload your resume (.pdf or .docx) using the sidebar.\n\n"
@@ -41,9 +35,7 @@ def get_missing_resume_message() -> str:
     )
 
 def get_missing_jd_message() -> str:
-    """
-    Get message when job description is missing for analysis.
-    """
+    """Message when job description is missing for analysis."""
     return (
         "📋 **Job Description Required**\n\n"
         "To provide a targeted analysis, I need both your resume and the job description. Please upload the job description (.pdf, .docx, or .txt) using the sidebar.\n\n"
@@ -55,9 +47,7 @@ def get_missing_jd_message() -> str:
     )
 
 def get_error_message() -> str:
-    """
-    Get generic error message.
-    """
+    """Generic error message."""
     return (
         "❌ **Something went wrong**\n\n"
         "I encountered an error processing your request. Please try again, or if the problem persists, check that:\n\n"

@@ -13,7 +13,6 @@ from ..core import (
 def create_workflow():
     workflow = StateGraph(ResumeCoPilotState)
 
-    # Add nodes
     workflow.add_node("ingest_documents", ingest_documents_node)
     workflow.add_node("router", router_node)
     workflow.add_node("analyze_resume", analyze_resume_node)
@@ -21,13 +20,10 @@ def create_workflow():
     workflow.add_node("rewrite_section", rewrite_section_node)
     workflow.add_node("format_output", format_output_node)
 
-    # Set entry point
     workflow.set_entry_point("ingest_documents")
 
-    # Define edges
     workflow.add_edge("ingest_documents", "router")
 
-    # Conditional routing from the router node
     workflow.add_conditional_edges(
         "router",
         lambda state: state["router_decision"],
@@ -41,21 +37,18 @@ def create_workflow():
         },
     )
 
-    # After each sub-agent, go to format_output
     workflow.add_edge("analyze_resume", "format_output")
     workflow.add_edge("generate_quiz", "format_output")
     workflow.add_edge("rewrite_section", "format_output")
 
-    # After formatting output, end the workflow (don't loop back)
     workflow.add_edge("format_output", END)
 
-    # Compile the graph
     app = workflow.compile()
     graph = app.get_graph().draw_mermaid()
-    # SAVE IN MD FILE BETWEEEN MERMAID TO VISUALIZE
+    # Save workflow visualization
     with open("workflow.md", "w") as f:
         f.write(graph)
     return app
 
-# Create the compiled app instance
+# Workflow instance
 app = create_workflow() 

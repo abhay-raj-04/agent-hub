@@ -1,7 +1,5 @@
 def get_fallback_analysis_report() -> str:
-    """
-    Get fallback analysis report when LLM fails.
-    """
+    """Fallback analysis report when LLM is unavailable."""
     return (
         "# Resume Analysis Report (Fallback Output)\n"
         "## 1. Keyword Alignment\n"
@@ -19,9 +17,7 @@ def get_fallback_analysis_report() -> str:
     )
 
 def get_fallback_quiz_questions() -> list:
-    """
-    Get fallback quiz questions when LLM fails.
-    """
+    """Fallback questions when LLM is unavailable."""
     return [
         "1. Tell me about a time when you led a project from start to finish. What challenges did you face and how did you overcome them?",
         "2. Describe a situation where you had to quickly learn a new technology or tool to complete a task.",
@@ -32,9 +28,7 @@ def get_fallback_quiz_questions() -> list:
     ]
 
 def get_fallback_rewrite_response() -> str:
-    """
-    Get fallback rewrite response when LLM fails.
-    """
+    """Fallback rewrite response when LLM is unavailable."""
     return (
         "**Rewritten Version 1:**\n"
         "- Led cross-functional teams to deliver projects on time, resulting in a 20% increase in client satisfaction.\n"

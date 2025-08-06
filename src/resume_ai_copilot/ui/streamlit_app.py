@@ -10,14 +10,14 @@ from io import BytesIO
 from docx import Document
 from PyPDF2 import PdfReader
 
-# Load environment variables from .env file
+# Load environment variables
 load_dotenv()
 
 from ..types.state import ResumeCoPilotState
 from ..workflow import app
 from ..prompts.system_prompts import get_welcome_message, get_error_message
 
-# --- Helper functions for document parsing ---
+# Document parsing helpers
 def extract_text_from_pdf(file_bytes):
     reader = PdfReader(BytesIO(file_bytes))
     text = ""
@@ -42,11 +42,10 @@ def extract_text_from_image(file_bytes):
 
 def main():
     """Main Streamlit application"""
-    # --- Streamlit UI Setup ---
     st.set_page_config(page_title="Resume AI Co-Pilot", layout="centered")
     st.title("Resume AI Co-Pilot 🚀")
 
-    # Initialize session state for LangGraph state and conversation history
+    # Initialize session state
     if "graph_state" not in st.session_state:
         st.session_state.graph_state = ResumeCoPilotState(
             resume_text="",

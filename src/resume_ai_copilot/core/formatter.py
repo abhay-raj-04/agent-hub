@@ -6,11 +6,10 @@ from ..prompts.system_prompts import (
 )
 
 def format_output_node(state: ResumeCoPilotState):
-    """
-    Format agent outputs into user-friendly chat responses.
-    """
+    """Formats agent outputs into user-friendly responses."""
     decision = state.get("router_decision", "")
-    ai_response_content = "I'm processing your request..." # Default fallback
+    ai_response_content = "I'm processing your request..."
+    
     if decision == "ANALYZE" and state.get("analysis_report"):
         ai_response_content = state["analysis_report"]
     elif decision == "QUIZ" and state.get("interview_quiz"):
@@ -21,8 +20,11 @@ def format_output_node(state: ResumeCoPilotState):
         ai_response_content = state["rewritten_section"]
     elif decision == "CLARIFY":
         missing_doc = []
-        if not state.get("resume_text"): missing_doc.append("resume")
-        if "analyze" in state.get("user_query", "").lower() and not state.get("job_description_text"): missing_doc.append("job description")
+        if not state.get("resume_text"): 
+            missing_doc.append("resume")
+        if "analyze" in state.get("user_query", "").lower() and not state.get("job_description_text"): 
+            missing_doc.append("job description")
+        
         if missing_doc:
             ai_response_content = get_missing_resume_message()
         else:
@@ -34,6 +36,5 @@ def format_output_node(state: ResumeCoPilotState):
     elif state.get("error_message"):
         ai_response_content = state["error_message"]
     
-    # Store the formatted response in the state for the UI to access
     state["formatted_response"] = ai_response_content
     return state 

@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-"""
-Debug script for router node
-Test the router logic and LLM calls to see what's happening
-"""
+"""Debug script for router node testing"""
 
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
+# Load environment variables
 load_dotenv()
 
 from ..types.state import ResumeCoPilotState
@@ -85,7 +82,7 @@ def test_router_with_sample_data():
             print(f"Exception: {e}")
 
 def test_llm_directly():
-    """Test LLM directly to see if it's working"""
+    """Test LLM directly to verify connectivity"""
     print("\n🧪 Testing LLM Directly")
     print("=" * 30)
     

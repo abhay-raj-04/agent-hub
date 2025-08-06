@@ -1,7 +1,5 @@
 def get_analysis_prompt(resume: str, jd: str = "", user_query: str = "") -> str:
-    """
-    Generate the analysis prompt for resume review.
-    """
+    """Generates analysis prompt for resume review."""
     return f"""
 You are an expert career coach and resume analyst. Your task is to provide a comprehensive, actionable analysis of the provided resume in the context of the job description. Focus on alignment, ATS-friendliness, impact, and clarity.
 

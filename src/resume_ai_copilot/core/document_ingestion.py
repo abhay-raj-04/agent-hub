@@ -2,10 +2,7 @@ import os
 from ..types.state import ResumeCoPilotState
 
 def ingest_documents_node(state: ResumeCoPilotState, file_path_resume=None, file_path_jd=None):
-    """
-    Extract text from uploaded files (resume, JD). Update state with extracted text.
-    Now supports PDF, DOCX, TXT, and image files (PNG, JPG, JPEG).
-    """
+    """Extracts text from uploaded files (PDF, DOCX, TXT, images)."""
     from PyPDF2 import PdfReader
     from docx import Document
     from PIL import Image
