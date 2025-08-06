@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-Main entry point for Resume AI Co-Pilot
-This file provides easy access to all the main functionality
-"""
+"""Main entry point for Resume AI Co-Pilot"""
 
 import sys
 import os

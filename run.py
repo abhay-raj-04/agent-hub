@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-Simple run script for Resume AI Co-Pilot
-This script provides easy access to all the main functionality
-"""
+"""Simple run script for Resume AI Co-Pilot"""
 
 import sys
 import os
