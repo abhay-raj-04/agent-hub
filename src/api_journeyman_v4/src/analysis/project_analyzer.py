@@ -8,15 +8,13 @@ def analyze_project_code_node(state: JourneymanState):
     print("--- [Analysis] Starting Project Code Analysis ---")
     project_path = Path(state['project_path'])
     file_contents = {}
-    file_limit = 10 # Avoid scanning huge projects
+    file_limit = 10
     
-    # Get excluded folders from state (if any)
     excluded_folders = state.get('excluded_folders', [])
     print(f"Excluded folders: {excluded_folders}")
 
     try:
-        for p in project_path.rglob('*.*'): # Scan for any file with an extension
-            # Check if any part of the path contains excluded folders
+        for p in project_path.rglob('*.*'):
             path_parts = p.parts
             should_skip = False
             
@@ -35,7 +33,7 @@ def analyze_project_code_node(state: JourneymanState):
                     if len(file_contents) >= file_limit:
                         break
                 except Exception:
-                    continue # Skip binary files etc.
+                    continue
 
         if not file_contents:
             raise ValueError("No readable files found in the specified project path.")

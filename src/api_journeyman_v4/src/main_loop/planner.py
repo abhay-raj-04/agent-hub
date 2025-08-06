@@ -1,14 +1,9 @@
-# Placeholder for planner functionality
+# Planner functionality
 from src.types.state import JourneymanState
 
 def planner_node(state: JourneymanState):
-    """
-    Plans an API call based on user goal and service documentation.
-    This is a simplified implementation for the demo.
-    """
+    """Plans API calls based on user goals and service documentation."""
     print("--- [Main Loop] Planning API call ---")
-    # In a real implementation, this would use LLM to analyze docs and create a plan
-    # For now, we'll create a mock plan
     mock_plan = {
         "method": "POST",
         "endpoint": f"/{state['service_name'].lower()}/api/v1/create",

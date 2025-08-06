@@ -10,27 +10,28 @@ from src.types.state import JourneymanState
 from src.analysis.project_analyzer import analyze_project_code_node
 from src.analysis.service_analyzer import analyze_service_docs_node
 from src.generation.guidance_generator import generate_guidance_node
-# We will simulate the main loop for clarity as it's complex
-# from src.main_loop...
+# Streamlit UI for Integration Co-Pilot
+from src.analysis.project_analyzer import analyze_project_code_node
+from src.analysis.service_analyzer import analyze_service_docs_node
+from src.generation.guidance_generator import generate_guidance_node
 
-# Load environment variables
 load_dotenv()
 
-# --- Helper for folder selection ---
+# Folder selection helper
 def select_folder():
     """Open a folder selection dialog and return the selected path"""
     root = tk.Tk()
-    root.withdraw()  # Hide the main window
-    root.wm_attributes('-topmost', 1)  # Bring to front
+    root.withdraw()
+    root.wm_attributes('-topmost', 1)
     folder_path = filedialog.askdirectory(title="Select Your Project Folder")
     root.destroy()
     return folder_path
 
-# --- Helper for multithreading in Streamlit ---
+# Multithreading helper
 def run_in_thread(target, args, q):
     thread = threading.Thread(target=target, args=args)
     thread.start()
-    thread.join() # Wait for the thread to complete
+    thread.join()
 
 def main():
     st.set_page_config(page_title="Integration Co-Pilot V4", layout="wide")
@@ -44,7 +45,7 @@ def main():
     - 📋 **Providing step-by-step guides** for manual integration
     """)
 
-    # Initialize session state for multi-step workflow
+    # Initialize session state
     if "step" not in st.session_state:
         st.session_state.step = "initial_input"
     if "state" not in st.session_state:
@@ -52,17 +53,15 @@ def main():
     if "synthesis_report" not in st.session_state:
         st.session_state.synthesis_report = ""
 
-    # --- STEP 1: Initial User Input ---
+    # STEP 1: Initial User Input
     if st.session_state.step == "initial_input":
         st.header("Step 1: Provide Project and Service Details")
         
-        # Project folder selection
         st.subheader("📁 Select Your Project Folder")
         
         col1, col2 = st.columns([3, 1])
         
         with col1:
-            # Text input for manual path entry
             project_path = st.text_input(
                 "Project Folder Path", 
                 value=st.session_state.get("selected_folder_path", ""),
@@ -71,7 +70,7 @@ def main():
             )
         
         with col2:
-            st.markdown("<br>", unsafe_allow_html=True)  # Add spacing
+            st.markdown("<br>", unsafe_allow_html=True)
             if st.button("📂 Browse", help="Click to browse and select your project folder"):
                 try:
                     selected_path = select_folder()
@@ -83,12 +82,10 @@ def main():
                 except Exception as e:
                     st.error(f"Error opening folder dialog: {str(e)}")
         
-        # Show selected folder info and exclusion options
         if project_path:
             if Path(project_path).exists():
                 st.success(f"✅ Valid project folder: `{project_path}`")
                 
-                # Show folder contents and allow exclusions
                 try:
                     all_items = list(Path(project_path).iterdir())
                     folders_only = [item for item in all_items if item.is_dir()]
@@ -216,7 +213,7 @@ def main():
                 st.session_state.step = "analysis"
                 st.rerun()
 
-    # --- STEP 2: Parallel Analysis ---
+    # STEP 2: Parallel Analysis
     if st.session_state.step == "analysis":
         st.header("Step 2: Autonomous Analysis in Progress...")
         
@@ -259,7 +256,7 @@ def main():
             
             st.session_state.state = state
             
-            # --- Synthesis Report Generation ---
+            # Synthesis Report Generation
             pa = state['project_analysis']
             sa = state['service_analysis']
             excluded_folders = state.get('excluded_folders', [])
@@ -292,7 +289,7 @@ Ready to proceed with integration! 🎉
             st.session_state.step = "interaction"
             st.rerun()
 
-    # --- STEP 3: User Interaction ---
+    # STEP 3: User Interaction
     if st.session_state.step == "interaction":
         st.header("Step 3: Choose Your Integration Path")
         st.markdown(st.session_state.synthesis_report)
@@ -333,7 +330,7 @@ Ready to proceed with integration! 🎉
                 st.session_state.clear()
                 st.rerun()
 
-    # --- STEP 4a: Guidance Generation ---
+    # STEP 4a: Guidance Generation
     if st.session_state.step == "run_guidance":
         st.header("📋 Your Custom Integration Guide")
         
@@ -353,7 +350,7 @@ Ready to proceed with integration! 🎉
                 st.session_state.clear()
                 st.rerun()
             
-    # --- STEP 4b: Code Generation ---
+    # STEP 4b: Code Generation
     if st.session_state.step == "get_goal":
         st.header("💻 Generate Context-Aware Code")
         

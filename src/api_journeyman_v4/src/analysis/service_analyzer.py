@@ -14,7 +14,7 @@ def analyze_service_docs_node(state: JourneymanState):
 
         loader = WebBaseLoader(docs_url)
         docs = loader.load()
-        docs_content = " ".join([d.page_content for d in docs])[:8000] # Increased context
+        docs_content = " ".join([d.page_content for d in docs])[:8000]
 
         llm = get_llm()
         prompt = get_service_analysis_prompt(docs_content, state['service_name'])
@@ -22,7 +22,6 @@ def analyze_service_docs_node(state: JourneymanState):
 
         cleaned = response.content.strip().replace("```json", "").replace("```", "")
         service_info = json.loads(cleaned)
-        # Add service name for later use in prompts
         service_info['service_name'] = state['service_name']
         state['service_analysis'] = service_info
 

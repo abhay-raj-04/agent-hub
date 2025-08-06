@@ -4,9 +4,7 @@ from langchain_core.tools import tool
 
 @tool
 def search_for_api_docs(service_name: str) -> str:
-    """
-    Searches the web for the official API documentation URL for a given service.
-    """
+    """Searches for official API documentation URLs."""
     try:
         tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
         query = f"official developer API documentation for {service_name}"
